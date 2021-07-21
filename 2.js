@@ -1,12 +1,30 @@
 //2. If a file is not present, create it.
 var fs= require("fs");
+var exist = require("./1.js");
+var filename = "fileA.txt";
 
+const openfile = () =>
+{
+    fs.open(filename,'w+',function(err) {
+        if(err){
+            console.log("An error occured")
+        }
+        else{
+            console.log("File opened");
+        }
+    });  
+};
 
-fs.open('fileB.txt','w+',function(err,fd){
-    if(err){
-        return console.log.error("Failed tp create");
+const checkfile = (filename,callback) =>
+{
+    const fileCheck = (exist.check(filename),callback);
+    if(fileCheck){
+        callback();
     }
     else{
-        console.log("The file you sought doesn't exist. A new file with the given name has been created!!")
+        console.log("file not found");
     }
-})
+    
+};
+
+checkfile(filename,openfile);
