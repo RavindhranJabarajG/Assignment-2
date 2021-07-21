@@ -1,15 +1,30 @@
 //4. Display the text on the screen
-var fs= require("fs");
+var fs = require('fs');
+var exist = require('./1.js');
+var filename = "fileA.txt"
 
-try{
-    var data = fs.readFileSync('fileC.txt',function(err,data) {
-        if(err){
-            throw err;
-        }
-    });
-    console.log(data.toString());
-}
-catch(err)
+const readfile = () =>
 {
-    console.error('readFile failed due to unexisting file');
-}
+    fs.readFile(filename,function(err,data) {
+        if(err){
+            console.log("Unable to read");
+        }
+        else{
+            console.log(data.toString());
+        }
+    });  
+};
+
+const checkfile = (filename,callback) =>
+{
+    const fileCheck = (exist.check(filename),callback);
+    if(fileCheck){
+        readfile();
+    }
+    else{
+        console.log("file not found");
+    }
+    
+};
+
+checkfile(filename,readfile);
