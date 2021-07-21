@@ -1,15 +1,30 @@
 //7. Display the content of the file
-const fs= require("fs");
+var fs = require('fs');
+var exist = require('./1.js');
+var filename = "fileA.txt"
 
-try{
-    var data = fs.readFileSync('fileA.txt',function(err,data) {
-        if(err){
-            return console.log.error(err);
-        }
-    });
-    console.log(data.toString());
-}
-catch(err)
+const readfile = () =>
 {
-    console.error('File does not exist');
-}
+    fs.readFile(filename,function(err,data) {
+        if(err){
+            console.log("File not found");
+        }
+        else{
+            console.log(data.toString());
+        }
+    });  
+};
+
+const checkfile = (filename,callback) =>
+{
+    const fileCheck = (exist.check(filename),callback);
+    if(fileCheck){
+        readfile();
+    }
+    else{
+        console.log("file not found");
+    }
+    
+};
+
+checkfile(filename,readfile);
